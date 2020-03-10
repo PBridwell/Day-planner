@@ -5,6 +5,12 @@ var currentDay= moment().format("dddd, MMMM Do YYYY");
 $('#currentDay').text(currentDay);
 
 
+// Get current hour from moment and set to 12 hour format 
+
+var nowHour = moment().format('h');
+console.log(nowHour);
+
+
 //Sets array for hour blocks
 planTextArr = new Array(9);
 // test for initial array 
@@ -30,13 +36,17 @@ for (var hour = 9; hour <= 17; hour++) {
     rowEl.attr('current-hour', hour);
     rowEl.addClass('time-block');
     console.log(rowEl);
+    console.log(hour);
+    console.log(index);
     
     // build time box portion of row 
     var timeDiv = $('<div>');
     timeDiv.addClass('col-md-2');
+    timeDiv.addClass('hour');
 
     var timeBox = $('<span>');
-    timeBox.attr('class', 'hour');
+    // timeBox.addClass('hour');
+    timeBox.addClass('time-block');
 
 
     // format hours to display. To be used later in color function 
@@ -69,6 +79,7 @@ for (var hour = 9; hour <= 17; hour++) {
     dailyItem.attr('type','text');
     dailyItem.attr('class','dailyItem');
     dailyItem.addClass('col-md-9');
+    console.log(dailyItem.attr('id'));
 
 
     dailyItem.val(planTextArr[index]);
@@ -85,19 +96,49 @@ for (var hour = 9; hour <= 17; hour++) {
     saveBtn.addClass('saveBtn');
     saveBtn.attr('id',`saveid-${index}`);
     saveBtn.attr('save-id',index);
+    console.log(saveBtn.attr('save-id'));
 
     // Append button to div and div to Row element
     rowEl.append(saveDiv);
     saveDiv.append(saveBtn);
+    console.log(nowHour);
 
     // Set past present future color based on time 
-    //  rowColor(rowEl, hour);
+     rowColor();
 
     // Add generated rows to planner container 
 
     plannerContainer.append(rowEl);
 
-
-
-
 };
+rowColor();
+
+    // Define rowColor function
+
+    function rowColor(hour){
+        if (hour < nowHour) {
+            console.log('less than');
+            rowEl.addClass('past');
+        }
+    };
+
+
+
+    // Save and store text input 
+
+    $('.saveBtn').on('click', function(event) {
+        event.preventDefault();
+        
+        var index = $(this).attr('save-id');
+        console.log(index);
+
+        var inputId = '#input-'+ index;
+        var value = $(inputId).val();
+        console.log(value);
+
+        planTextArr[index] = value;
+
+         console.log('value ', value); 
+          console.log('index ', index); 
+         console.log('click pta after '+ planTextArr); 
+    });
