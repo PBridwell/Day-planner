@@ -12,7 +12,7 @@ $('#currentDay').text(currentDay);
 // Get current hour from moment and set to 12 hour format 
 
 var nowHour = moment().format('h');
-console.log(nowHour);
+
 
 
 //Sets array for hour blocks
@@ -21,7 +21,7 @@ planTextArr = new Array(9);
  planTextArr[4] = "Picnic lunch outside";
   
 
-  console.log("full array of plned text",planTextArr); 
+ 
 
 
 // set planner container as a variable
@@ -33,7 +33,7 @@ var plannerContainer = $('.plannerContainer')
 
 var savedPlans = JSON.parse(localStorage.getItem('savedPlans'));
 
-console.log(savedPlans);
+
 
 if (savedPlans !== null) {
     planTextArr = savedPlans;
@@ -53,10 +53,7 @@ for (var hour = 9; hour <= 17; hour++) {
     rowEl.addClass('plannerRow');
     rowEl.attr('current-hour', hour);
     rowEl.addClass('time-block');
-    console.log(rowEl);
-    console.log(hour);
-    console.log(index);
-    
+   
     // build time box portion of row 
     var timeDiv = $('<div>');
     timeDiv.addClass('col-md-2');
@@ -80,12 +77,11 @@ for (var hour = 9; hour <= 17; hour++) {
     }
 
     timeBox.text(`${displayHours} ${ampm}`);
-    console.log(timeBox);
+    
 
     rowEl.append(timeDiv);
     timeDiv.append(timeBox);
-    console.log(timeDiv);
-    console.log(rowEl);
+    
     // Time block built 
 
     // build 'textarea' input 
@@ -97,7 +93,7 @@ for (var hour = 9; hour <= 17; hour++) {
     dailyItem.attr('type','text');
     dailyItem.attr('class','dailyItem');
     dailyItem.addClass('col-md-9');
-    console.log(dailyItem.attr('id'));
+    
 
 
     dailyItem.val(planTextArr[index]);
@@ -114,12 +110,12 @@ for (var hour = 9; hour <= 17; hour++) {
     saveBtn.addClass('saveBtn');
     saveBtn.attr('id',`saveid-${index}`);
     saveBtn.attr('save-id',index);
-    console.log(saveBtn.attr('save-id'));
+    
 
     // Append button to div and div to Row element
     rowEl.append(saveDiv);
     saveDiv.append(saveBtn);
-    console.log(nowHour);
+    
 
     // Set past present future color based on time 
      rowColor();
@@ -128,17 +124,27 @@ for (var hour = 9; hour <= 17; hour++) {
 
     plannerContainer.append(rowEl);
 
+    function rowColor(){
+        if (hour < nowHour) {
+            var nowHour = moment().format('h');
+            
+            dailyItem.addClass('past');
+            console.log(dailyItem.classList);
+        }
+    };
+
 };
 rowColor();
 
     // Define rowColor function
 
-    function rowColor(hour){
-        if (hour < nowHour) {
-            console.log('less than');
-            rowEl.addClass('past');
-        }
-    };
+    // function rowColor(hour){
+    //     if (hour < nowHour) {
+    //         var nowHour = moment().format('h');
+    //         console.log('less than');
+    //         rowEl.addClass('past');
+    //     }
+    // };
 
 
 
@@ -148,20 +154,18 @@ rowColor();
         event.preventDefault();
         
         var index = $(this).attr('save-id');
-        console.log(index);
+        
 
         var inputId = '#input-'+ index;
         var value = $(inputId).val();
-        console.log(value);
+        
         planTextArr.splice(index, 1, value);
-        console.log(planTextArr);
+        
         localStorage.setItem("savedPlans", JSON.stringify(planTextArr));
 
         planTextArr[index] = value;
 
-         console.log('value ', value); 
-          console.log('index ', index); 
-         console.log('click pta after '+ planTextArr); 
+         
     });
     
 });
