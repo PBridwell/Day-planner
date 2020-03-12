@@ -153,6 +153,9 @@ rowColor();
         var inputId = '#input-'+ index;
         var value = $(inputId).val();
         console.log(value);
+        planTextArr.splice(index, 1, value);
+        console.log(planTextArr);
+        localStorage.setItem("savedPlans", JSON.stringify(planTextArr));
 
         planTextArr[index] = value;
 
