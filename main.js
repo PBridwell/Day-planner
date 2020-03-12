@@ -1,3 +1,7 @@
+$(document).ready(function() {
+
+
+
 // Get current date and time from Moment 
 var currentDay= moment().format("dddd, MMMM Do YYYY");
 
@@ -23,6 +27,20 @@ planTextArr = new Array(9);
 // set planner container as a variable
 
 var plannerContainer = $('.plannerContainer')
+
+
+// Get saved plans from storage, parse string to object
+
+var savedPlans = JSON.parse(localStorage.getItem('savedPlans'));
+
+console.log(savedPlans);
+
+if (savedPlans !== null) {
+    planTextArr = savedPlans;
+} else {
+    planTextArr = new Array(9);
+    planTextArr[4] = "Picnic lunch outside";
+  }
 
 
 // build calendar by row for fix set of hours
@@ -142,3 +160,5 @@ rowColor();
           console.log('index ', index); 
          console.log('click pta after '+ planTextArr); 
     });
+    
+});
