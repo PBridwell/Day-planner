@@ -118,33 +118,32 @@ for (var hour = 9; hour <= 17; hour++) {
     
 
     // Set past present future color based on time 
-     rowColor();
+     rowColor(hour);
 
     // Add generated rows to planner container 
 
     plannerContainer.append(rowEl);
 
-    function rowColor(){
-        if (hour < nowHour) {
-            var nowHour = moment().format('h');
-            
-            dailyItem.addClass('past');
-            console.log(dailyItem.classList);
-        }
-    };
+    
+    console.log(nowHour);
+    console.log(hour);
 
 };
-rowColor();
 
     // Define rowColor function
 
-    // function rowColor(hour){
-    //     if (hour < nowHour) {
-    //         var nowHour = moment().format('h');
-    //         console.log('less than');
-    //         rowEl.addClass('past');
-    //     }
-    // };
+    function rowColor(num){
+        console.log('hit');
+        if (num > parseInt(nowHour)) {
+            // var nowHour = moment().format('h');
+            console.log('less than');
+            rowEl.addClass('future');
+        } else if (num < parseInt(nowHour)) {
+            rowEl.addClass('past');
+        } else if (num = parseInt(nowHour)) {
+            rowEl.addClass('present');
+        }
+    };
 
 
 
