@@ -39,7 +39,7 @@ if (savedPlans !== null) {
     planTextArr = savedPlans;
 } else {
     planTextArr = new Array(9);
-    planTextArr[4] = "Picnic lunch outside";
+    // planTextArr[4] = "Picnic lunch outside";
   }
 
 
@@ -125,18 +125,16 @@ for (var hour = 9; hour <= 17; hour++) {
     plannerContainer.append(rowEl);
 
     
-    console.log(nowHour);
-    console.log(hour);
+   
 
 };
 
     // Define rowColor function
 
     function rowColor(num){
-        console.log('hit');
+        
         if (num > parseInt(nowHour)) {
             // var nowHour = moment().format('h');
-            console.log('less than');
             rowEl.addClass('future');
         } else if (num < parseInt(nowHour)) {
             rowEl.addClass('past');
